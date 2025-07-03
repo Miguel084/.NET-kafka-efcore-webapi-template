@@ -1,0 +1,21 @@
+# This is a generated file. Not intended for manual editing.
+services:
+  producer:
+    build:
+      context: "D:\\RiderProjects\\Kafka-Microsservices"
+      dockerfile: "Producer/Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net8.0/Producer.dll"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+    image: "producer:dev"
+    ports: []
+    volumes:
+    - "D:\\RiderProjects\\Kafka-Microsservices\\Producer:/app:rw"
+    - "D:\\RiderProjects\\Kafka-Microsservices:/src:rw"
+    - "C:\\Users\\alegr\\.nuget\\packages:/home/app/.nuget/packages"
+    working_dir: "/app"
