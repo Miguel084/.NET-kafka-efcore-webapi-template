@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Shared.Domain.Data.Models;
 
-public class Address
+public class Address : ModelsBase
 {
 
     [Key]
@@ -15,12 +15,6 @@ public class Address
     public string State { get; set; } = string.Empty;
 
     public string ZipCode { get; set; } = string.Empty;
-
-
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
-    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
-
 
     public ICollection<Users> Users { get; set; } = new List<Users>();
 

@@ -34,3 +34,14 @@
       KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND: "true"
     depends_on:
       - zoo1
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    container_name: kafka-ui
+    ports:
+      - "8080:8080"
+    environment:
+      KAFKA_CLUSTERS_0_NAME: local
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:19092
+    depends_on:
+      - kafka

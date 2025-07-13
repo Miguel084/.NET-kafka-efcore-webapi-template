@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Shared.Domain.Data.Config;
 
@@ -11,9 +12,11 @@ using Shared.Domain.Data.Config;
 namespace Shared.Domain.Data.Migrations
 {
     [DbContext(typeof(EfDbContext))]
-    partial class EfDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250713005414_AddWalletAndTrasactionTable")]
+    partial class AddWalletAndTrasactionTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
