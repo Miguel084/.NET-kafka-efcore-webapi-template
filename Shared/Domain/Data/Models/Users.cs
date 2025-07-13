@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Shared.Domain.Data.Models;
 
@@ -11,11 +12,9 @@ public class Users : ModelsBase
 
     public string Email { get; set; } = string.Empty;
 
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
-    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
-
     public Address? Address { get; set; }
+
+    public Wallet? Wallet { get; set; }
 
     public string ValidateUser()
     {
@@ -43,6 +42,16 @@ public class Users : ModelsBase
             return "Email cannot exceed 320 characters.";
 
         return string.Empty;
+    }
+
+    public decimal GetWalletBalance()
+    {
+        return Wallet?.Transactions.Sum(t => t.TransactionType == WalletTransaction.TransactionTypeEnum.Deposit ? t.Amount : -t.Amount) ?? 0;
+    }
+
+    public List<WalletTransaction> GetWalletTransactions()
+    {
+        return Wallet?.Transactions ?? new List<WalletTransaction>();
     }
 
 }

@@ -1,4 +1,5 @@
 using Confluent.Kafka;
+using Confluent.Kafka.Admin;
 using Microsoft.EntityFrameworkCore;
 using Shared.Domain.Data.Config;
 
@@ -18,17 +19,17 @@ builder.Services.AddDbContext<EfDbContext>(
         ServerVersion.AutoDetect(connectionString)
     )
 );
+builder.Services.AddSingleton(new ProducerConfig
+{
+    BootstrapServers = "localhost:9092",
+    Acks = Acks.All,
+    EnableIdempotence = true,
+});
 
 builder.Services.AddSingleton<IProducer<Null, string>>(sp =>
 {
-    var config = new ProducerConfig
-    {
-        BootstrapServers = "localhost:9092",
-        Acks = Acks.All,
-        EnableIdempotence = true,
-    };
-
-    return new ProducerBuilder<Null, string>(config).Build();
+    var config = sp.GetRequiredService<ProducerConfig>();
+    return KafkaProducerFactory.CreateProducer<Null, string>(config);
 });
 
 var app = builder.Build();
